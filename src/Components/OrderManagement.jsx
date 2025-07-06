@@ -1,107 +1,12 @@
 import React, { useState } from 'react';
-import Header from './Header'; // Assuming you have a Header component
+import Header from './Header';
 
-// Main Order Management Component
-const OrderManagement = () => {
+const OrderManagement = ({ orders = [] }) => {
   const [activeTab, setActiveTab] = useState('Pending');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedOrders, setSelectedOrders] = useState([]);
 
   const tabs = ['Pending', 'Confirmed', 'Processing', 'Picked', 'Shipped', 'Delivered', 'Cancelled'];
-
-  const orders = [
-    {
-      id: '#6548',
-      created: '2 min ago',
-      customer: 'Benmansour Imad',
-      total: '4700.DA',
-      profit: '2500.DA',
-      profitPercent: '16%',
-      status: 'Pending'
-    },
-    {
-      id: '#6549',
-      created: '5 min ago',
-      customer: 'Amrani Haithem',
-      total: '3200.DA',
-      profit: '1800.DA',
-      profitPercent: '16%',
-      status: 'Pending'
-    },
-    {
-      id: '#6550',
-      created: '8 min ago',
-      customer: 'Sayah Abdelillah',
-      total: '2800.DA',
-      profit: '1500.DA',
-      profitPercent: '16%',
-      status: 'Pending'
-    },
-    {
-      id: '#6551',
-      created: '12 min ago',
-      customer: 'Chiati Mouad',
-      total: '3400.DA',
-      profit: '1200.DA',
-      profitPercent: '16%',
-      status: 'Pending'
-    },
-    {
-      id: '#6552',
-      created: '15 min ago',
-      customer: 'Bendebiche Sadjed',
-      total: '2800.DA',
-      profit: '1500.DA',
-      profitPercent: '16%',
-      status: 'Pending'
-    },
-    {
-      id: '#6553',
-      created: '18 min ago',
-      customer: 'Moumine Rayane',
-      total: '2800.DA',
-      profit: '1500.DA',
-      profitPercent: '16%',
-      status: 'Pending'
-    },
-    {
-      id: '#6554',
-      created: '20 min ago',
-      customer: 'Benharat Walid',
-      total: '2800.DA',
-      profit: '1500.DA',
-      profitPercent: '16%',
-      status: 'Pending'
-    },
-    {
-      id: '#6555',
-      created: '25 min ago',
-      customer: 'Meziani Imad',
-      total: '2800.DA',
-      profit: '1500.DA',
-      profitPercent: '16%',
-      status: 'Pending'
-    },
-    // Add some orders with different statuses for testing
-    {
-      id: '#6556',
-      created: '1 hour ago',
-      customer: 'Ahmed Bensalem',
-      total: '3500.DA',
-      profit: '2000.DA',
-      profitPercent: '16%',
-      status: 'Confirmed'
-    },
-    {
-      id: '#6557',
-      created: '2 hours ago',
-      customer: 'Fatima Zohra',
-      total: '4200.DA',
-      profit: '2500.DA',
-      profitPercent: '16%',
-      status: 'Processing'
-    }
-  ];
 
   const SearchIcon = () => (
     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -118,12 +23,6 @@ const OrderManagement = () => {
   const MoreIcon = () => (
     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-    </svg>
-  );
-
-  const ChevronDownIcon = () => (
-    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
     </svg>
   );
 
@@ -175,7 +74,6 @@ const OrderManagement = () => {
 
   return (
     <div className="flex h-screen bg-gray-50">
-      {/* <Sidebar /> */}
       <div className="flex-1 flex flex-col">
         <Header pageName="Order Management" />
         
@@ -259,48 +157,56 @@ const OrderManagement = () => {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {filteredOrders.map((order, index) => (
-                    <tr key={index} className="hover:bg-gray-50">
-                      <td className="px-6 py-4">
-                        <input
-                          type="checkbox"
-                          checked={selectedOrders.includes(order.id)}
-                          onChange={() => handleSelectOrder(order.id)}
-                          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                        />
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        {order.id}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {order.created}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        {order.customer}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        {order.total}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        <div className="flex items-center space-x-2">
-                          <span>{order.profit}</span>
-                          <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
-                            {order.profitPercent}
+                  {filteredOrders.length > 0 ? (
+                    filteredOrders.map((order, index) => (
+                      <tr key={order.id} className="hover:bg-gray-50">
+                        <td className="px-6 py-4">
+                          <input
+                            type="checkbox"
+                            checked={selectedOrders.includes(order.id)}
+                            onChange={() => handleSelectOrder(order.id)}
+                            className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                          />
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                          {order.id}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          {order.created}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                          {order.customer}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                          {order.total}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                          <div className="flex items-center space-x-2">
+                            <span>{order.profit}</span>
+                            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
+                              {order.profitPercent}
+                            </span>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(order.status)}`}>
+                            {order.status}
                           </span>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(order.status)}`}>
-                          {order.status}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        <button className="text-gray-400 hover:text-blue-600 p-1 rounded-full hover:bg-blue-50">
-                          <MoreIcon />
-                        </button>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          <button className="text-gray-400 hover:text-blue-600 p-1 rounded-full hover:bg-blue-50">
+                            <MoreIcon />
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="8" className="px-6 py-8 text-center text-gray-500">
+                        No orders found for "{activeTab}" status.
                       </td>
                     </tr>
-                  ))}
+                  )}
                 </tbody>
               </table>
             </div>

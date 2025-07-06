@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const Header = ({ pageName }) => {
+const Transaction = ({ transactions = [] }) => {
+  const [notificationCount, setNotificationCount] = useState(0);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [showUserMenu, setShowUserMenu] = useState(false);
+
   const BellIcon = () => (
     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
@@ -13,95 +17,189 @@ const Header = ({ pageName }) => {
     </svg>
   );
 
-  return (
-    <header className="bg-gray-100">
-      <div className="flex items-center justify-between px-6 py-4">
-        <h1 className="text-2xl font-bold text-gray-900">{pageName}</h1>
-        <div className="flex items-center space-x-4">
-          <div className="relative">
-            <button>
-                <BellIcon />
-            </button>
-            
-            <span className="absolute -top-1 -right-1 h-3 w-3 bg-red-500 rounded-full text-xs text-white flex items-center justify-center">
-              1
-            </span>
-          </div>
-          <UserIcon />
-        </div>
-      </div>
-    </header>
-  );
-};
+  const notifications = [];
 
-const Transaction = () => {
-  const transactions = [
-    { id: '#5089', date: '31 March 2023', total: '25,000.00 DA' },
-    { id: '#5089', date: '31 March 2023', total: '28,000.00 DA' },
-    { id: '#5089', date: '31 March 2023', total: '15,000.00 DA' },
-    { id: '#5089', date: '31 March 2023', total: '35,000.00 DA' },
-    { id: '#5089', date: '31 March 2023', total: '27,000.00 DA' },
-    { id: '#5089', date: '31 March 2023', total: '45,000.00 DA' },
-    { id: '#5089', date: '31 March 2023', total: '45,000.00 DA' },
-    { id: '#5089', date: '31 March 2023', total: '45,000.00 DA' },
-  ];
+  const handleNotificationClick = () => {
+    setShowNotifications(!showNotifications);
+    setShowUserMenu(false);
+  };
+
+  const handleUserClick = () => {
+    setShowUserMenu(!showUserMenu);
+    setShowNotifications(false);
+  };
+
+  const markAsRead = (id) => {
+    setNotificationCount(prev => Math.max(0, prev - 1));
+  };
+
+  const clearAllNotifications = () => {
+    setNotificationCount(0);
+    setShowNotifications(false);
+  };
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <Header />
+      {/* Header */}
+      <header className="bg-white shadow-sm relative">
+        <div className="flex items-center justify-end px-6 py-4">
+          <div className="flex items-center space-x-4">
+            {/* Notification Bell */}
+            <div className="relative">
+              <button
+                onClick={handleNotificationClick}
+                className="relative p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-all duration-200 transform hover:scale-110"
+              >
+                <BellIcon />
+                {notificationCount > 0 && (
+                  <span className="absolute -top-1 -right-1 h-5 w-5 bg-red-500 rounded-full text-xs text-white flex items-center justify-center animate-pulse">
+                    {notificationCount}
+                  </span>
+                )}
+              </button>
+              
+              {/* Notification Dropdown */}
+              {showNotifications && (
+                <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                  <div className="p-4 border-b border-gray-200 flex items-center justify-between">
+                    <h3 className="font-semibold text-gray-900">Notifications</h3>
+                    {notificationCount > 0 && (
+                      <button
+                        onClick={clearAllNotifications}
+                        className="text-sm text-blue-600 hover:text-blue-800 font-medium"
+                      >
+                        Clear all
+                      </button>
+                    )}
+                  </div>
+                  <div className="max-h-64 overflow-y-auto">
+                    {notifications.map((notification) => (
+                      <div
+                        key={notification.id}
+                        className="p-3 hover:bg-gray-50 border-b border-gray-100 last:border-b-0 cursor-pointer"
+                        onClick={() => markAsRead(notification.id)}
+                      >
+                        <p className="text-sm text-gray-800">{notification.message}</p>
+                        <p className="text-xs text-gray-500 mt-1">{notification.time}</p>
+                      </div>
+                    ))}
+                  </div>
+                  {notifications.length === 0 && (
+                    <div className="p-4 text-center text-gray-500">
+                      No new notifications
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* User Profile */}
+            <div className="relative">
+              <button
+                onClick={handleUserClick}
+                className="text-gray-600 hover:text-gray-900 hover:bg-gray-100 p-1 rounded-full transition-all duration-200 transform hover:scale-110"
+              >
+                <UserIcon />
+              </button>
+              
+              {/* User Dropdown */}
+              {showUserMenu && (
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                  <div className="p-2">
+                    <button className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md transition-colors">
+                      Profile Settings
+                    </button>
+                    <button className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md transition-colors">
+                      Account
+                    </button>
+                    <button className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md transition-colors">
+                      Preferences
+                    </button>
+                    <hr className="my-2" />
+                    <button className="w-full text-left px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded-md transition-colors">
+                      Sign Out
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+        
+        {/* Overlay to close dropdowns when clicking outside */}
+        {(showNotifications || showUserMenu) && (
+          <div
+            className="fixed inset-0 z-40"
+            onClick={() => {
+              setShowNotifications(false);
+              setShowUserMenu(false);
+            }}
+          />
+        )}
+      </header>
+
+      {/* Main Content */}
       <div className="p-6">
         <div className="bg-white rounded-lg shadow-sm border border-gray-300 overflow-hidden">
-      {/* Header */}
-      <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-        <h2 className="text-lg font-medium text-gray-900">Last Transactions</h2>
-        <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">
-          View All
-        </button>
-      </div>
+          {/* Table Header */}
+          <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+            <h2 className="text-lg font-medium text-gray-900">Last Transactions</h2>
+            <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">
+              View All
+            </button>
+          </div>
 
-      {/* Table */}
-      <div className="overflow-x-auto">
-        <table className="w-full">
-          <thead className="bg-gray-50">
-            <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                ID
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                ISSUED DATE
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                TOTAL
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                ACTIONS
-              </th>
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            {transactions.map((transaction, index) => (
-              <tr key={index} className="hover:bg-gray-50">
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="text-blue-600 hover:text-blue-700 cursor-pointer text-sm font-medium">
-                    {transaction.id}
-                  </span>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  {transaction.date}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  {transaction.total}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">
-                    View Detail
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+          {/* Table */}
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    ID
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    ISSUED DATE
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    TOTAL
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    ACTIONS
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {transactions.length > 0 ? (
+                  transactions.map((transaction, index) => (
+                    <tr key={index} className="hover:bg-gray-50">
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className="text-blue-600 hover:text-blue-700 cursor-pointer text-sm font-medium">
+                          {transaction.id}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        {transaction.date}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        {transaction.total}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">
+                          View Detail
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="4" className="px-6 py-8 text-center text-gray-500">
+                      No transactions available
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

@@ -1,100 +1,11 @@
-import React, { useState, useEffect, useCallback } from "react";
-import Sidebar from "./Components/Sidebar";
-import Dashboard from "./Components/Dashboard";
-import OrderManagement from "./Components/OrderManagement";
-import Customers from "./Components/Customers";
-import Transaction from "./Components/Transaction";
-import ProductsList from "./Components/ProductsList";
-
-// Constants for better maintainability
-const VIEWS = {
-  DASHBOARD: 'dashboard',
-  ORDER_MANAGEMENT: 'orderManagement',
-  CUSTOMERS: 'customers',
-  TRANSACTIONS: 'transactions',
-  SHIPMENTS: 'shipments',
-  ADD_PRODUCTS: 'addProducts',
-  PRODUCT_LIST: 'productList',
-  SETTINGS: 'settings'
-};
-
-const NAVIGATION_EVENT = 'app:navigate';
-
-function App() {
-  const [currentView, setCurrentView] = useState(VIEWS.DASHBOARD);
-
-  // Memoized navigation handler
-  const handleNavigation = useCallback((view) => {
-    if (Object.values(VIEWS).includes(view)) {
-      setCurrentView(view);
-    }
-  }, []);
-
-  // Event listener for navigation
-  useEffect(() => {
-    const handleNavigationEvent = (event) => {
-      const { view } = event.detail;
-      handleNavigation(view);
-    };
-
-    // Add event listener
-    window.addEventListener(NAVIGATION_EVENT, handleNavigationEvent);
-
-    // Cleanup event listener
-    return () => {
-      window.removeEventListener(NAVIGATION_EVENT, handleNavigationEvent);
-    };
-  }, [handleNavigation]);
-
-  // Utility function to dispatch navigation events
-  const dispatchNavigationEvent = useCallback((view) => {
-    const event = new CustomEvent(NAVIGATION_EVENT, {
-      detail: { view }
-    });
-    window.dispatchEvent(event);
-  }, []);
-
-  // Component mapping for better organization
-  const componentMap = {
-    [VIEWS.DASHBOARD]: Dashboard,
-    [VIEWS.ORDER_MANAGEMENT]: OrderManagement,
-    [VIEWS.CUSTOMERS]: Customers,
-    [VIEWS.TRANSACTIONS]: Transaction,
-    [VIEWS.PRODUCT_LIST]: ProductsList,
-    [VIEWS.SHIPMENTS]: () => <PlaceholderView title="Shipments" />,
-    [VIEWS.ADD_PRODUCTS]: () => <PlaceholderView title="Add Products" />,
-    [VIEWS.SETTINGS]: () => <PlaceholderView title="Settings" />
-  };
-
-  // Render main content based on current view
-  const renderMainContent = () => {
-    const Component = componentMap[currentView] || componentMap[VIEWS.DASHBOARD];
-    
-    // Special handling for Transaction component that needs padding wrapper
-    if (currentView === VIEWS.TRANSACTIONS) {
-      return (
-        <div className="p-6">
-          <Component />
-        </div>
-      );
-    }
-    
-    return <Component />;
-  };
-
-  return (
-    <div className="flex h-screen bg-gray-100">
-      <Sidebar 
-        currentView={currentView} 
-        onNavigate={handleNavigation}
-        dispatchNavigationEvent={dispatchNavigationEvent}
-      />
-      <main className="flex-1 overflow-auto" role="main">
-        {renderMainContent()}
-      </main>
-    </div>
-  );
-}
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Layout from './Components/Layout';
+import DashboardPage from './Pages/DashboardPage';
+import OrderManagementPage from './Pages/OrderManagementPage';
+import ProductsPage from './Pages/ProductsPage';
+import TransactionPage from './Pages/TransactionPage';
+import CustomersPage from './Pages/CustomersPage'; // Updated import
 
 // Placeholder component for unimplemented views
 const PlaceholderView = ({ title }) => (
@@ -107,5 +18,29 @@ const PlaceholderView = ({ title }) => (
     </p>
   </div>
 );
+
+function App() {
+  return (
+    <Router>
+      <div className="min-h-screen bg-gray-50">
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<DashboardPage />} />
+            <Route path="dashboard" element={<DashboardPage />} />
+            <Route path="orders" element={<OrderManagementPage />} />
+            <Route path="customers" element={<CustomersPage />} />
+            <Route path="transactions" element={<TransactionPage />} />
+            <Route path="products" element={<ProductsPage />} />
+            <Route path="add-products" element={<PlaceholderView title="Add Products" />} />
+            <Route path="shipments" element={<PlaceholderView title="Shipments" />} />
+            <Route path="settings" element={<PlaceholderView title="Settings" />} />
+            
+            <Route path="*" element={<PlaceholderView title="Page Not Found" />} />
+          </Route>
+        </Routes>
+      </div>
+    </Router>
+  );
+}
 
 export default App;

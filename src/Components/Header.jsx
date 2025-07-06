@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const Header = ({ pageName }) => {
-  const [notificationCount, setNotificationCount] = useState(3);
+  const [notificationCount, setNotificationCount] = useState(0);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
 
@@ -17,11 +17,7 @@ const Header = ({ pageName }) => {
     </svg>
   );
 
-  const notifications = [
-    { id: 1, message: "New message from John", time: "2 min ago" },
-    { id: 2, message: "Task deadline approaching", time: "1 hour ago" },
-    { id: 3, message: "System maintenance scheduled", time: "3 hours ago" }
-  ];
+  const notifications = [];
 
   const handleNotificationClick = () => {
     setShowNotifications(!showNotifications);

@@ -1,6 +1,9 @@
 import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
-const Sidebar = ({ currentView, onNavigate }) => {
+const Sidebar = () => {
+  const location = useLocation();
+
   // Simple SVG Icons
   const HomeIcon = () => (
     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -52,21 +55,38 @@ const Sidebar = ({ currentView, onNavigate }) => {
   );
 
   const sidebarItems = [
-    { name: 'Dashboard', icon: HomeIcon, view: 'dashboard' },
-    { name: 'Order Management', icon: ClipboardIcon, view: 'orderManagement' },
-    { name: 'Customers', icon: UsersIcon, view: 'customers' },
-    { name: 'Transaction', icon: CreditCardIcon, view: 'transactions' },
-    { name: 'Shipments', icon: TruckIcon, view: 'shipments' },
+    { name: 'Dashboard', icon: HomeIcon, path: '/dashboard' },
+    { name: 'Order Management', icon: ClipboardIcon, path: '/orders' },
+    { name: 'Customers', icon: UsersIcon, path: '/customers' },
+    { name: 'Transaction', icon: CreditCardIcon, path: '/transactions' },
+    { name: 'Shipments', icon: TruckIcon, path: '/shipments' },
   ];
 
   const productItems = [
-    { name: 'Add Products', icon: PlusIcon, view: 'addProducts' },
-    { name: 'Product List', icon: ListIcon, view: 'productList' },
+    { name: 'Add Products', icon: PlusIcon, path: '/add-products' },
+    { name: 'Product List', icon: ListIcon, path: '/products' },
   ];
 
-  const handleNavigation = (view) => {
-    onNavigate(view);
+  const isActive = (path) => {
+    if (path === '/dashboard') {
+      return location.pathname === '/' || location.pathname === '/dashboard';
+    }
+    return location.pathname === path;
   };
+
+  const SidebarLink = ({ item, isActive }) => (
+    <Link
+      to={item.path}
+      className={`w-full flex items-center px-4 py-3 text-sm font-medium rounded-lg mb-1 text-left transition-colors ${
+        isActive
+          ? 'bg-blue-50 text-blue-600 border-r-2 border-blue-600'
+          : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+      }`}
+    >
+      <item.icon />
+      <span className="ml-3">{item.name}</span>
+    </Link>
+  );
 
   return (
     <div className="w-64 bg-white shadow-sm border-r border-gray-200">
@@ -77,18 +97,11 @@ const Sidebar = ({ currentView, onNavigate }) => {
       <nav className="mt-6">
         <div className="px-6">
           {sidebarItems.map((item, index) => (
-            <button
+            <SidebarLink
               key={index}
-              onClick={() => handleNavigation(item.view)}
-              className={`w-full flex items-center px-4 py-3 text-sm font-medium rounded-lg mb-1 text-left ${
-                currentView === item.view
-                  ? 'bg-blue-50 text-blue-600 border-r-2 border-blue-600'
-                  : 'text-gray-600 hover:bg-gray-50'
-              }`}
-            >
-              <item.icon />
-              <span className="ml-3">{item.name}</span>
-            </button>
+              item={item}
+              isActive={isActive(item.path)}
+            />
           ))}
         </div>
 
@@ -98,18 +111,11 @@ const Sidebar = ({ currentView, onNavigate }) => {
           </h3>
           <div className="mt-4">
             {productItems.map((item, index) => (
-              <button
+              <SidebarLink
                 key={index}
-                onClick={() => handleNavigation(item.view)}
-                className={`w-full flex items-center px-4 py-3 text-sm font-medium rounded-lg mb-1 text-left ${
-                  currentView === item.view
-                    ? 'bg-blue-50 text-blue-600 border-r-2 border-blue-600'
-                    : 'text-gray-600 hover:bg-gray-50'
-                }`}
-              >
-                <item.icon />
-                <span className="ml-3">{item.name}</span>
-              </button>
+                item={item}
+                isActive={isActive(item.path)}
+              />
             ))}
           </div>
         </div>
@@ -119,17 +125,17 @@ const Sidebar = ({ currentView, onNavigate }) => {
             ADMIN
           </h3>
           <div className="mt-4">
-            <button
-              onClick={() => handleNavigation('settings')}
-              className={`w-full flex items-center px-4 py-3 text-sm font-medium rounded-lg text-left ${
-                currentView === 'settings'
+            <Link
+              to="/settings"
+              className={`w-full flex items-center px-4 py-3 text-sm font-medium rounded-lg text-left transition-colors ${
+                isActive('/settings')
                   ? 'bg-blue-50 text-blue-600 border-r-2 border-blue-600'
-                  : 'text-gray-600 hover:bg-gray-50'
+                  : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
               }`}
             >
               <SettingsIcon />
               <span className="ml-3">Settings</span>
-            </button>
+            </Link>
           </div>
         </div>
       </nav>

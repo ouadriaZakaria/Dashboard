@@ -54,7 +54,7 @@ const GenderChart = ({ data, title, subtitle, chartType }) => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setAnimatedData(data);
+      setAnimatedData(data || []);
     }, 300);
     return () => clearTimeout(timer);
   }, [data]);
@@ -97,6 +97,8 @@ const CustomerCard = ({ customer, index }) => {
     }, 200 * index);
     return () => clearTimeout(timer);
   }, [index]);
+
+  if (!customer) return null;
 
   return (
     <div className={`bg-white rounded-lg p-10 shadow-sm border border-gray-100 transition-all duration-500 ${
@@ -158,31 +160,7 @@ const CustomerCard = ({ customer, index }) => {
   );
 };
 
-const Customers = () => {
-  const genderData = [
-    { name: 'Men', value: 63 },
-    { name: 'Women', value: 37 }
-  ];
-
-  const circularData = [
-    { percentage: 85, color: '#8b5cf6', label: 'Current Customers' },
-    { percentage: 66, color: '#f59e0b', label: 'New Customers' },
-    { percentage: 90, color: '#f97316', label: 'Target Customers' }
-  ];
-
-  const customers = Array.from({ length: 3 }, () => ({
-    name: 'Hadjadji Mounir',
-    email: 'hadjadi2004@gmail.com',
-    phone: '(213) 555-0124',
-    gender: 'Male',
-    dob: '29 May 2004',
-    memberSince: '3 March, 2023',
-    address: 'EL DJELFA, ALGERIA',
-    totalOrders: 24,
-    completed: 11,
-    cancelled: 13
-  }));
-
+const Customers = ({ genderData = [], circularData = [], customers = [] }) => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header pageName="Customers" />
