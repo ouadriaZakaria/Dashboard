@@ -39,114 +39,16 @@ const Transaction = ({ transactions = [] }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      {/* Header */}
-      <header className="bg-white shadow-sm relative">
-        <div className="flex items-center justify-end px-6 py-4">
-          <div className="flex items-center space-x-4">
-            {/* Notification Bell */}
-            <div className="relative">
-              <button
-                onClick={handleNotificationClick}
-                className="relative p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-all duration-200 transform hover:scale-110"
-              >
-                <BellIcon />
-                {notificationCount > 0 && (
-                  <span className="absolute -top-1 -right-1 h-5 w-5 bg-red-500 rounded-full text-xs text-white flex items-center justify-center animate-pulse">
-                    {notificationCount}
-                  </span>
-                )}
-              </button>
-              
-              {/* Notification Dropdown */}
-              {showNotifications && (
-                <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
-                  <div className="p-4 border-b border-gray-200 flex items-center justify-between">
-                    <h3 className="font-semibold text-gray-900">Notifications</h3>
-                    {notificationCount > 0 && (
-                      <button
-                        onClick={clearAllNotifications}
-                        className="text-sm text-blue-600 hover:text-blue-800 font-medium"
-                      >
-                        Clear all
-                      </button>
-                    )}
-                  </div>
-                  <div className="max-h-64 overflow-y-auto">
-                    {notifications.map((notification) => (
-                      <div
-                        key={notification.id}
-                        className="p-3 hover:bg-gray-50 border-b border-gray-100 last:border-b-0 cursor-pointer"
-                        onClick={() => markAsRead(notification.id)}
-                      >
-                        <p className="text-sm text-gray-800">{notification.message}</p>
-                        <p className="text-xs text-gray-500 mt-1">{notification.time}</p>
-                      </div>
-                    ))}
-                  </div>
-                  {notifications.length === 0 && (
-                    <div className="p-4 text-center text-gray-500">
-                      No new notifications
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-
-            {/* User Profile */}
-            <div className="relative">
-              <button
-                onClick={handleUserClick}
-                className="text-gray-600 hover:text-gray-900 hover:bg-gray-100 p-1 rounded-full transition-all duration-200 transform hover:scale-110"
-              >
-                <UserIcon />
-              </button>
-              
-              {/* User Dropdown */}
-              {showUserMenu && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
-                  <div className="p-2">
-                    <button className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md transition-colors">
-                      Profile Settings
-                    </button>
-                    <button className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md transition-colors">
-                      Account
-                    </button>
-                    <button className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md transition-colors">
-                      Preferences
-                    </button>
-                    <hr className="my-2" />
-                    <button className="w-full text-left px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded-md transition-colors">
-                      Sign Out
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-        
-        {/* Overlay to close dropdowns when clicking outside */}
-        {(showNotifications || showUserMenu) && (
-          <div
-            className="fixed inset-0 z-40"
-            onClick={() => {
-              setShowNotifications(false);
-              setShowUserMenu(false);
-            }}
-          />
-        )}
-      </header>
-
-      {/* Main Content */}
-      <div className="p-6">
-        <div className="bg-white rounded-lg shadow-sm border border-gray-300 overflow-hidden">
+    <main className="w-full bg-gray-50 lg:p-5 pb-18  overflow-auto h-full">
+     
+      <div className=" w-full ">
+        <div className="bg-white rounded-lg  border border-gray-200 overflow-hidden">
           {/* Table Header */}
-          <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+          <div className="px-3 py-4 border-b border-gray-200 flex justify-between items-center">
             <h2 className="text-lg font-medium text-gray-900">Last Transactions</h2>
-            <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">
+            {/* <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">
               View All
-            </button>
+            </button> */}
           </div>
 
           {/* Table */}
@@ -202,7 +104,7 @@ const Transaction = ({ transactions = [] }) => {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

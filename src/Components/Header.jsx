@@ -39,10 +39,12 @@ const Header = ({ pageName }) => {
   };
 
   return (
-    <header className="bg-white shadow-sm relative">
-      <div className="flex items-center justify-between px-6 py-4">
-        <h1 className="text-2xl font-bold text-gray-900">{pageName}</h1>
-        <div className="flex items-center space-x-4">
+    <header className="bg-white relative">
+
+
+      <div className="flex items-center justify-between px-3 md:px-6 py-3">
+        <h1 className="text-lg md:text-2xl font-bold text-gray-900">{pageName}</h1>
+        <div className="flex items-center space-x-1">
           {/* Notification Bell */}
           <div className="relative">
             <button
@@ -59,8 +61,8 @@ const Header = ({ pageName }) => {
             
             {/* Notification Dropdown */}
             {showNotifications && (
-              <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
-                <div className="p-4 border-b border-gray-200 flex items-center justify-between">
+              <div className="absolute lg:right-0 -right-10 mt-2 w-52 lg:w-80 bg-white rounded-lg shadow-lg   z-50 animate-in fade-in  duration-200">
+                <div className="p-4  flex items-center justify-between">
                   <h3 className="font-semibold text-gray-900">Notifications</h3>
                   {notificationCount > 0 && (
                     <button
@@ -75,7 +77,7 @@ const Header = ({ pageName }) => {
                   {notifications.map((notification) => (
                     <div
                       key={notification.id}
-                      className="p-3 hover:bg-gray-50 border-b border-gray-100 last:border-b-0 cursor-pointer"
+                      className="p-3 hover:bg-gray-50  last:border-b-0 cursor-pointer"
                       onClick={() => markAsRead(notification.id)}
                     >
                       <p className="text-sm text-gray-800">{notification.message}</p>
@@ -105,17 +107,18 @@ const Header = ({ pageName }) => {
             {showUserMenu && (
               <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                 <div className="p-2">
-                  <button className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md transition-colors">
-                    Profile Settings
+                  <button className="w-full cursor-pointer text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md transition-colors">
+                    Settings
                   </button>
-                  <button className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md transition-colors">
+                  <button className="w-full cursor-pointer text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md transition-colors">
                     Account
                   </button>
-                  <button className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md transition-colors">
+                  <button className="w-full cursor-pointer text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md transition-colors">
                     Preferences
                   </button>
-                  <hr className="my-2" />
-                  <button className="w-full text-left px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded-md transition-colors">
+                  
+                  <button className="w-full flex items-center gap-2 mt-4 text-left px-3 py-2 text-sm text-white bg-red-500 hover:bg-red-600 cursor-pointer rounded-md transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out-icon lucide-log-out"><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/></svg>
                     Sign Out
                   </button>
                 </div>

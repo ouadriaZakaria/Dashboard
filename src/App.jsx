@@ -6,6 +6,7 @@ import OrderManagementPage from './Pages/OrderManagementPage';
 import ProductsPage from './Pages/ProductsPage';
 import TransactionPage from './Pages/TransactionPage';
 import CustomersPage from './Pages/CustomersPage'; // Updated import
+import AppBar from './Components/AppBar';
 
 // Placeholder component for unimplemented views
 const PlaceholderView = ({ title }) => (
@@ -22,7 +23,8 @@ const PlaceholderView = ({ title }) => (
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-gray-50">
+      <div className="w-full relative h-dvh  ">
+        <AppBar/>
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<DashboardPage />} />

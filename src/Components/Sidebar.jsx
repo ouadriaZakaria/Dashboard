@@ -77,9 +77,9 @@ const Sidebar = () => {
   const SidebarLink = ({ item, isActive }) => (
     <Link
       to={item.path}
-      className={`w-full flex items-center px-4 py-3 text-sm font-medium rounded-lg mb-1 text-left transition-colors ${
+      className={`w-full flex items-center px-4 py-3 text-sm font-medium rounded-l-lg mb-1 text-left transition-colors ${
         isActive
-          ? 'bg-blue-50 text-blue-600 border-r-2 border-blue-600'
+          ? 'bg-blue-50 text-blue-600 border-r-4 border-blue-600'
           : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
       }`}
     >
@@ -89,7 +89,7 @@ const Sidebar = () => {
   );
 
   return (
-    <div className="w-64 bg-white shadow-sm border-r border-gray-200">
+    <div className="w-64 lg:block hidden bg-white shadow-sm  ">
       <div className="p-6">
         <h2 className="text-l font-bold text-gray-500">MAIN MENU</h2>
       </div>
@@ -120,24 +120,7 @@ const Sidebar = () => {
           </div>
         </div>
 
-        <div className="mt-8 px-6">
-          <h3 className="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider">
-            ADMIN
-          </h3>
-          <div className="mt-4">
-            <Link
-              to="/settings"
-              className={`w-full flex items-center px-4 py-3 text-sm font-medium rounded-lg text-left transition-colors ${
-                isActive('/settings')
-                  ? 'bg-blue-50 text-blue-600 border-r-2 border-blue-600'
-                  : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-              }`}
-            >
-              <SettingsIcon />
-              <span className="ml-3">Settings</span>
-            </Link>
-          </div>
-        </div>
+        
       </nav>
     </div>
   );

@@ -1,5 +1,6 @@
 import React from 'react';
 import OrderManagement from '../Components/OrderManagement';
+import Header from '../Components/Header';
 
 // Sample orders data - replace with your actual data fetching logic
 const sampleOrders = [
@@ -138,7 +139,10 @@ const OrderManagementPage = () => {
   // if (loading) return <div>Loading...</div>;
   // if (error) return <div>Error loading orders</div>;
 
-  return <OrderManagement orders={sampleOrders} />;
+  return  <div className=" flex w-full h-dvh flex-col  overflow-hidden ">
+      <Header pageName="Orders" />
+      <OrderManagement orders={sampleOrders} />
+    </div> ;
 };
 
 export default OrderManagementPage;

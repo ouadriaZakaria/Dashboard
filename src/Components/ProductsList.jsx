@@ -9,54 +9,54 @@ const ProductsList = ({ stockData = [], productData = [] }) => {
   );
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div className="w-full bg-gray-50 lg:p-5 pb-18 lg:pb-0 overflow-y-auto h-full">
+      <div className="grid lg:h-full  grid-cols-1  lg:grid-cols-2 lg:gap-6">
         {/* Stock-Out Predictions */}
-        <div className="bg-white rounded-lg shadow-sm p-6">
+        <div className="bg-white  lg:rounded-lg  p-4">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-lg font-semibold text-blue-600">Stock-Out Predictions</h2>
+            <h2 className="text-lg font-semibold text-blue-600">Stock-Out</h2>
             <OptionsIcon />
           </div>
           
           {/* Product Icons */}
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center pb-4 custom-horizontal-scrollbar overflow-x-auto justify-between gap-4 mb-2">
             <div className="flex flex-col items-center">
-              <div className="w-12 h-12 rounded-lg bg-gray-900 flex items-center justify-center mb-2">
+              <div className="min-w-12 min-h-12 w-12 h-12 rounded-lg bg-gray-900 flex items-center justify-center mb-2">
                 <span className="text-white text-xl">⌚</span>
               </div>
-              <span className="text-xs text-gray-600">Apple Watch</span>
+              <span className="text-xs whitespace-nowrap text-gray-600">Apple Watch</span>
             </div>
             <div className="flex flex-col items-center">
-              <div className="w-12 h-12 rounded-lg bg-blue-600 flex items-center justify-center mb-2">
+              <div className="min-w-12 min-h-12 w-12 h-12 rounded-lg bg-blue-600 flex items-center justify-center mb-2">
                 <span className="text-white text-xl">👟</span>
               </div>
-              <span className="text-xs text-gray-600">Jordan Air</span>
+              <span className="text-xs whitespace-nowrap text-gray-600">Jordan Air</span>
             </div>
             <div className="flex flex-col items-center">
-              <div className="w-12 h-12 rounded-lg bg-gray-900 flex items-center justify-center mb-2">
+              <div className="min-w-12 min-h-12 w-12 h-12 rounded-lg bg-gray-900 flex items-center justify-center mb-2">
                 <span className="text-white text-xl">🎧</span>
               </div>
-              <span className="text-xs text-gray-600">Airpods</span>
+              <span className="text-xs whitespace-nowrap text-gray-600">Airpods</span>
             </div>
             <div className="flex flex-col items-center">
-              <div className="w-12 h-12 rounded-lg bg-gray-900 flex items-center justify-center mb-2">
+              <div className="min-w-12 min-h-12 w-12 h-12 rounded-lg bg-gray-900 flex items-center justify-center mb-2">
                 <span className="text-white text-xl">🖥️</span>
               </div>
-              <span className="text-xs text-gray-600">Monitors</span>
+              <span className="text-xs whitespace-nowrap text-gray-600">Monitors</span>
             </div>
             <div className="flex flex-col items-center">
-              <div className="w-12 h-12 rounded-lg bg-gray-300 flex items-center justify-center mb-2">
+              <div className="min-w-12 min-h-12 w-12 h-12 rounded-lg bg-gray-300 flex items-center justify-center mb-2">
                 <span className="text-gray-600 text-xl">🛏️</span>
               </div>
-              <span className="text-xs text-gray-600">Medical pillow</span>
+              <span className="text-xs whitespace-nowrap text-gray-600">Medical pillow</span>
             </div>
           </div>
 
           {/* Chart */}
-          <div className="h-48 relative">
+          <div className="h-72 relative">
             {stockData.length > 0 ? (
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={stockData} margin={{ top: 10, right: 30, left: 20, bottom: 30 }}>
+              <ResponsiveContainer className=" -translate-x-5 border-none outline-none " width="100%" height="100%">
+                <LineChart data={stockData} margin={{ top: 10, right: 5, left: 0, bottom: 30 }}>
                   <XAxis 
                     dataKey="day" 
                     axisLine={false} 
@@ -92,7 +92,7 @@ const ProductsList = ({ stockData = [], productData = [] }) => {
         </div>
 
         {/* Winning Products */}
-        <div className="bg-white rounded-lg shadow-sm p-6">
+        <div className="bg-white overflow-y-auto customScrollBar h-full lg:rounded-lg shadow-sm p-3">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-lg font-semibold text-blue-600">Winning Products</h2>
             <OptionsIcon />
@@ -109,13 +109,13 @@ const ProductsList = ({ stockData = [], productData = [] }) => {
           <div className="space-y-4">
             {productData.length > 0 ? (
               productData.map((product, index) => (
-                <div key={index} className="grid grid-cols-3 gap-4 items-center">
+                <div key={index} className="grid sm:grid-cols-3 bg-gray-50 p-2 rounded-lg sm:p-0 gap-4 items-center">
                   <div className="flex flex-col">
                     <span className="font-medium text-gray-900 text-sm">{product.name}</span>
                     <span className="text-xs text-gray-500">Item #{product.itemCode}</span>
                   </div>
-                  <div className="text-center">
-                    <span className="text-lg font-bold text-gray-900">{product.sold}</span>
+                  <div className="pl-2">
+                    <span className="text-base  font-bold text-gray-900">{product.sold}</span>
                   </div>
                   <div className="text-sm font-medium text-gray-900">{product.price}</div>
                 </div>

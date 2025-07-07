@@ -1,5 +1,6 @@
 import React from 'react';
 import Transaction from '../Components/Transaction';
+import Header from '../Components/Header';
 
 const TransactionPage = () => {
   const transactions = [
@@ -14,7 +15,11 @@ const TransactionPage = () => {
   ];
 
   return (
-    <Transaction transactions={transactions} />
+    
+     <div className=" flex w-full h-dvh flex-col  overflow-hidden ">
+      <Header pageName="Dashboard" />
+      <Transaction transactions={transactions} />
+    </div>
   );
 };
 
