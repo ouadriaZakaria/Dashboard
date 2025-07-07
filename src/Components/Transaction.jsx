@@ -1,38 +1,39 @@
 import React from 'react';
+import Header from './Header';
 
-const Header = ({ pageName }) => {
-  const BellIcon = () => (
-    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-    </svg>
-  );
+// const Header = ({ pageName }) => {
+//   const BellIcon = () => (
+//     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+//       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+//     </svg>
+//   );
 
-  const UserIcon = () => (
-    <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-      <path fillRule="evenodd" d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" clipRule="evenodd" />
-    </svg>
-  );
+//   const UserIcon = () => (
+//     <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+//       <path fillRule="evenodd" d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" clipRule="evenodd" />
+//     </svg>
+//   );
 
-  return (
-    <header className="bg-gray-100">
-      <div className="flex items-center justify-between px-6 py-4">
-        <h1 className="text-2xl font-bold text-gray-900">{pageName}</h1>
-        <div className="flex items-center space-x-4">
-          <div className="relative">
-            <button>
-                <BellIcon />
-            </button>
+//   return (
+//     <main className="bg-gray-100">
+//       <div className="flex items-center justify-between px-6 py-4">
+//         <h1 className="text-2xl font-bold text-gray-900">{pageName}</h1>
+//         <div className="flex items-center space-x-4">
+//           <div className="relative">
+//             <button>
+//                 <BellIcon />
+//             </button>
             
-            <span className="absolute -top-1 -right-1 h-3 w-3 bg-red-500 rounded-full text-xs text-white flex items-center justify-center">
-              1
-            </span>
-          </div>
-          <UserIcon />
-        </div>
-      </div>
-    </header>
-  );
-};
+//             <span className="absolute -top-1 -right-1 h-3 w-3 bg-red-500 rounded-full text-xs text-white flex items-center justify-center">
+//               1
+//             </span>
+//           </div>
+//           <UserIcon />
+//         </div>
+//       </div>
+//     </main>
+//   );
+// };
 
 const Transaction = () => {
   const transactions = [
@@ -47,8 +48,8 @@ const Transaction = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <Header />
+    <div className="min-h-dvh bg-gray-100">
+      <Header pageName="Transaction" />
       <div className="p-6">
         <div className="bg-white rounded-lg shadow-sm border border-gray-300 overflow-hidden">
       {/* Header */}

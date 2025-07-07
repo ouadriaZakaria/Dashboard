@@ -73,7 +73,7 @@ function App() {
     // Special handling for Transaction component that needs padding wrapper
     if (currentView === VIEWS.TRANSACTIONS) {
       return (
-        <div className="p-6">
+        <div className="">
           <Component />
         </div>
       );
@@ -83,7 +83,7 @@ function App() {
   };
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-dvh lg:pl-0 pl-8 bg-gray-100">
       <Sidebar 
         currentView={currentView} 
         onNavigate={handleNavigation}
