@@ -104,6 +104,7 @@ const Transaction = ({ transactions = [] }) => {
           </div>
         </div>
       </div>
+      
     </main>
   );
 };

@@ -7,6 +7,7 @@ import ProductsPage from './Pages/ProductsPage';
 import TransactionPage from './Pages/TransactionPage';
 import CustomersPage from './Pages/CustomersPage'; // Updated import
 import AppBar from './Components/AppBar';
+import AddProduct from './Pages/AddProduct';
 
 // Placeholder component for unimplemented views
 const PlaceholderView = ({ title }) => (
@@ -33,7 +34,7 @@ function App() {
             <Route path="customers" element={<CustomersPage />} />
             <Route path="transactions" element={<TransactionPage />} />
             <Route path="products" element={<ProductsPage />} />
-            <Route path="add-products" element={<PlaceholderView title="Add Products" />} />
+            <Route path="add-products" element={<AddProduct/>} />
             <Route path="shipments" element={<PlaceholderView title="Shipments" />} />
             <Route path="settings" element={<PlaceholderView title="Settings" />} />
             

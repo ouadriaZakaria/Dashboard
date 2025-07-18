@@ -140,21 +140,21 @@ const OrderManagement = ({ orders = [] }) => {
               <div className="relative  ">
                 <input
                   type="text"
-                  placeholder="Search by order id.."
+                  placeholder="Search by order.."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 w-full lg:w-fit pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="pl-10 w-full lg:w-fit pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-[1.4px] focus:ring-blue-500 focus:border-transparent"
                 />
                 <div className="absolute left-3 top-2.5 text-gray-400">
                   <SearchIcon />
                 </div>
               </div>
               <div className=" flex items-center gap-2 pt-2 ">
-                <select className="border-[1.5px]  px-1 text-gray-700 rounded-lg border-gray-200 outline-none py-[6px] w-full " >
+                <select onClick={(e) => setActiveTab(e.target.value)} className="border-[1.5px] lg:hidden px-1 text-gray-700 rounded-lg border-gray-200 outline-none py-[6px] w-full " >
                   {tabs.map((tab) => (
                     <option
                       key={tab}
-                      onClick={() => setActiveTab(tab)}
+                      value={tab}
                       className={`py-4 px-1 border-b-2 font-medium text-sm ${
                         activeTab === tab
                           ? "border-blue-500 text-blue-600"
@@ -167,7 +167,7 @@ const OrderManagement = ({ orders = [] }) => {
                 </select>
                 <button className="flex items-center lg:space-x-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
                   <FilterIcon />
-                  <span className=" hidden lg:inline ">Date filter</span>
+                  <span className="whitespace-nowrap hidden lg:inline ">Date filter</span>
                 </button>
               </div>
             </div>

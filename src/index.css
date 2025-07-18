@@ -1,5 +1,10 @@
 @import 'tailwindcss';
+@import 'keen-slider/keen-slider.min.css';
 
+
+body{
+  scroll-behavior: smooth;
+}
 
 ::-webkit-scrollbar {
   width: 6px;

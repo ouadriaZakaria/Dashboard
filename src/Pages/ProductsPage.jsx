@@ -96,10 +96,21 @@ const ProductsPage = () => {
     },
   ];
 
+  const transactions = [
+    { id: '#5089', date: 'thius is the product name that contain a name and everything to show to the admin thius is the product name that contain a name and everything to show to the admin', total: '34' , quantity : 12 },
+    { id: '#5090', date: 'thius is the product name that contain a name and everything to show to the admin thius is the product name that contain a name and everything to show to the admin', total: '34' , quantity : 12 },
+    { id: '#5091', date: 'thius is the product name that contain a name and everything to show to the admin thius is the product name that contain a name and everything to show to the admin', total: '34' , quantity : 12 },
+    { id: '#5092', date: 'thius is the product name that contain a name and everything to show to the admin thius is the product name that contain a name and everything to show to the admin', total: '34' , quantity : 12 },
+    { id: '#5093', date: 'thius is the product name that contain a name and everything to show to the admin thius is the product name that contain a name and everything to show to the admin', total: '34' , quantity : 12 },
+    { id: '#5094', date: 'thius is the product name that contain a name and everything to show to the admin thius is the product name that contain a name and everything to show to the admin', total: '34' , quantity : 12 },
+    { id: '#5095', date: 'rything to show to the admin', total: '34' , quantity : 12 },
+    { id: '#5096', date: 'thius is the product name that contain a name and everything to show to the admin thius is the product name that contain a name and everything to show to the admin', total: '34' , quantity : 12 },
+  ];
+
   return (
     <div className=" flex w-full h-dvh flex-col  overflow-hidden ">
-      <Header pageName="Dashboard" />
-      <ProductsList stockData={stockData} productData={productData} />
+      <Header pageName="Products" />
+      <ProductsList transactions={transactions} stockData={stockData} productData={productData} />
     </div>
   );
 };
